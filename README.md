@@ -4,7 +4,7 @@ Implemented solvers:\
 **RND**: random policy \
 **DJSQ**: Join the shortest out of the d queues \
 **MF**: Mean field solver using PPO \
-**MFRND**: Mean field solver using RND \ 
+**MFRND**: Mean field solver using RND \
 **MFDJSQ**: Mean field solver using DJSQ \
 
 For training run the **main.py** file with the following configurations: \
