@@ -5,7 +5,7 @@ Implemented solvers:\
 **DJSQ**: Join the shortest out of the d queues \
 **MF**: Mean field solver using PPO \
 **MFRND**: Mean field solver using RND \
-**MFDJSQ**: Mean field solver using DJSQ \
+**MFDJSQ**: Mean field solver using DJSQ 
 
 For training run the **main.py** file with the following configurations: \
 solver number_agents number_queues delta_t \
