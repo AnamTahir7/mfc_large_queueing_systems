@@ -24,7 +24,7 @@ def run(solver, number_agents, number_queues, delta_t):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('solver', help='name of the solver', choices=['NA', 'PS', 'MF', 'RND', 'DJSQ', 'DSED', 'MFDJSQ', 'MFRND', 'JIQ'])
+    parser.add_argument('solver', help='name of the solver', choices=['MF', 'RND', 'DJSQ', 'MFDJSQ', 'MFRND'])
     parser.add_argument('nr_agents', type=int)
     parser.add_argument('nr_queues', type=int)
     parser.add_argument('delta_t', type=float)
@@ -42,4 +42,4 @@ if __name__ == '__main__':
     # Reset the original value of the CUDA Device
     if cvd is not None:
         os.environ["CUDA_VISIBLE_DEVICES"] = cvd
-# DSED 20000 200 1
+    # DJSQ 20000 200 1

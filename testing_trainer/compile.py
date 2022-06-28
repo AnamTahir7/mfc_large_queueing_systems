@@ -74,7 +74,7 @@ if __name__ == '__main__':
     config = [[10000,100],[40000,200], [160000,400], [360000, 600], [640000,800], [1000000, 1000]]
     curr_dir = ''
     output_dir = ''
-    algos = [ 'MF','DSED','RND']
+    algos = [ 'MF','DJSQ','RND']
     for no_agents, no_queues in config:
         final_cum_reward_per_nm = []
         final_cum_reward_per_nm_positive = []
@@ -107,8 +107,6 @@ if __name__ == '__main__':
                 label = 'JSQ(2)'
             elif algos[l] == 'MF':
                 label = 'MF-NM'
-            if algos[l] == 'DSED':
-                label = 'SED(2)'
             else:
                 label = algos[l]
             plt.errorbar(np.arange(len(delta_all)), final_cum_reward_per_nm_positive[l], ci_cum_reward_per_nm[l],
@@ -137,7 +135,7 @@ if __name__ == '__main__':
         ci_cum_reward = []
 
         # To compare for different N and M
-        algos = ['MF', 'DJSQ', 'RND', 'DSED']
+        algos = ['MF', 'DJSQ', 'RND']
         plot_dir = Path('')
         all_dr = [
             ''
@@ -179,8 +177,6 @@ if __name__ == '__main__':
                 label = 'JSQ(2)'
             elif algos[l] == 'MF':
                 label = 'MF-NM'
-            if algos[l] == 'DSED':
-                label = 'SED(2)'
             else:
                 label = algos[l]
             plt.errorbar(np.array(M), final_last_cum_reward_positive[l], final_ci_cum_reward[l],

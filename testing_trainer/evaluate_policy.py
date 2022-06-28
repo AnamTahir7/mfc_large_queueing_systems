@@ -12,7 +12,6 @@ import ray
 import ray.rllib.agents.ppo as ppo
 from ray.tune import register_env
 
-from envs_queues.ma_env_wrapper import make_multi_agent
 from envs_queues.queues_env import NQ_env
 from utils import save_to_file
 
@@ -60,13 +59,8 @@ class EvaluatePolicy:
         config['num_workers'] = 1
 
         ray.init(local_mode=True)
-        if trained_policy == 'MF':
-            register_env("EVAL", lambda x: cls.create_env(x))
-            agent = ppo.PPOTrainer(config, env='EVAL')
-
-        else:
-            ma_env_cls = make_multi_agent(cls.create_env)
-            agent = ppo.PPOTrainer(config, env=ma_env_cls)
+        register_env("EVAL", lambda x: cls.create_env(x))
+        agent = ppo.PPOTrainer(config, env='EVAL')
 
         agent.restore(_chkpnt_file)
         run_params['trained_policy'] = trained_policy

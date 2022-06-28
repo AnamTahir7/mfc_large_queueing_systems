@@ -3,7 +3,7 @@ import subprocess
 if __name__ == '__main__':
     child_processes = []
     delta_t_all = [1,2,3,4,5,6,7,8,9,10]
-    solver_all = ['DJSQ', 'RND', 'DSED']
+    solver_all = ['DJSQ', 'RND']
     nm_config = [[160000,400], [360000, 600], [640000,800], [1000000, 1000]]
     import multiprocessing
     num_cores = multiprocessing.cpu_count()

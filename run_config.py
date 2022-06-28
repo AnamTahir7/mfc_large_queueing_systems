@@ -2,8 +2,7 @@ import time
 from utils import create_file_path, save_params_to_file
 
 from envs_queues.queues_env import NQ_env
-from solvers import rnd, d_jsq, d_sed, centralised_d_jsq_mf, centralised_rnd_mf,\
-    rllib_mf_action_ppo,rllib_nagent_action_ppo, rllib_nagent_action_ppo_ps, jiq
+from solvers import rnd, d_jsq, centralised_d_jsq_mf, centralised_rnd_mf, rllib_mf_action_ppo
 
 
 def run_training(trained_policy, buffer_size, number_queues, service_rates_each_queues, service_rates_all_queues,
@@ -34,7 +33,7 @@ def run_training(trained_policy, buffer_size, number_queues, service_rates_each_
 
     if trained_policy in ('MF','MFDJSQ', 'MFRND'):
         config = 'mf'
-    elif trained_policy in ('PS', 'NA', 'DJSQ', 'RND', 'DSED', 'JIQ'):
+    elif trained_policy in ('DJSQ', 'RND'):
         config = 'na_mq'
     else:
         raise NotImplementedError
@@ -49,23 +48,7 @@ def run_training(trained_policy, buffer_size, number_queues, service_rates_each_
                       delta_t, global_arr_rate, number_agents, config,
                       testing_time_step, d, outer_loop_iter, distr_srv, arr_rate_as_obs, trained_policy)
 
-    if trained_policy == 'NA':
-        print("Current configuration:", config)
-        print("N agent PPO solver")
-        solver = rllib_nagent_action_ppo.RLLibSolver(env_creator, results_dir=results_dir)
-        begin = time.time()
-        avg_reward, min_reward, max_reward, trainer = solver.solve(env)
-        print(time.time() - begin)
-
-    elif trained_policy == 'PS':
-        print("Current configuration:", config)
-        print("N agent PPO solver with parameter sharing")
-        solver = rllib_nagent_action_ppo_ps.RLLibSolver(env_creator, results_dir=results_dir)
-        begin = time.time()
-        avg_reward, min_reward, max_reward, trainer = solver.solve(env)
-        print(time.time() - begin)
-
-    elif trained_policy == 'MF':
+    if trained_policy == 'MF':
         print("Current configuration:", config)
         print("MF PPO solver")
         # ray.init(local_mode=True)
@@ -98,26 +81,10 @@ def run_training(trained_policy, buffer_size, number_queues, service_rates_each_
         avg_reward = solver.solve(env)
         print(time.time() - begin)
 
-    elif trained_policy == 'DSED':
-        print("Current configuration:", config)
-        print("DSED solver")
-        solver = d_sed.DSED(env_creator, run_params, results_dir=results_dir)
-        begin = time.time()
-        avg_reward = solver.solve(env)
-        print(time.time() - begin)
-
     elif trained_policy == 'RND':
         print("Current configuration:", config)
         print("RND solver")
         solver = rnd.RND(env_creator, run_params, results_dir=results_dir)
-        begin = time.time()
-        avg_reward = solver.solve(env)
-        print(time.time() - begin)
-
-    elif trained_policy == 'JIQ':
-        print("Current configuration:", config)
-        print("JIQ solver")
-        solver = jiq.JIQ(env_creator, run_params, results_dir=results_dir)
         begin = time.time()
         avg_reward = solver.solve(env)
         print(time.time() - begin)
